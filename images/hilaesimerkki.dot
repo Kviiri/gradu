@@ -1,0 +1,147 @@
+digraph {
+  node [shape=circle][label=" "][fontsize=10][fontname="monospace"]
+       [fixedsize=true][height=0.25][width=0.25]
+  edge [arrowsize=0.5]
+  nodesep=0.3
+  ranksep=0.3
+  rankdir=BT
+   
+  subgraph {
+    node[style=invisible]
+    rank = same; a1; a2; a3; a4; a5; a6; a7;
+  }
+
+  subgraph {
+    rank = same;
+    b1[style=invisible]; b2; b3[label="N"]; b4; b5; b6; b7[style=invisible];
+  }
+
+  subgraph {
+    rank = same;
+    c1[style=invisible]; c2; c3; c4; c5; c6; c7[style=invisible];
+  }
+ 
+  subgraph {
+    rank = same;
+    d1[style=invisible]; d2; d3; d4; d5; d6; d7[style=invisible];
+  }
+
+  subgraph {
+    rank = same;
+    e1[style=invisible]; e2; e3[label="S"]; e4; e5; e6; e7[style=invisible];
+  }
+  
+  subgraph {
+    rank = same;
+    f1[style=invisible];
+    f2[label="W"];
+    f3[style=filled][fillcolor="black"];
+    f4[label="E"];
+    f5;
+    f6;
+    f7[style=invisible];
+  }
+
+  subgraph {
+    node[style = invisible]
+    rank = same; g1; g2; g3; g4; g5; g6; g7;
+  }
+
+  a1 -> a2 [style=invis]
+  a2 -> a3 [style=invis]
+  a3 -> a4 [style=invis]
+  a4 -> a5 [style=invis]
+  a5 -> a6 [style=invis]
+  a6 -> a7 [style=invis]
+  
+  a1 -> b1 [style=invis]
+  b1 -> b2
+  b2 -> b3
+  b3 -> b4
+  b4 -> b5
+  b5 -> b6
+  b6 -> b7
+
+  b1 -> c1 [style=invis]
+  c1 -> c2
+  c2 -> c3
+  c3 -> c4
+  c4 -> c5
+  c5 -> c6
+  c6 -> c7
+
+  c1 -> d1 [style=invis]
+  d1 -> d2
+  d2 -> d3
+  d3 -> d4
+  d4 -> d5
+  d5 -> d6
+  d6 -> d7
+
+  d1 -> e1 [style=invis]
+  e1 -> e2
+  e2 -> e3
+  e3 -> e4
+  e4 -> e5
+  e5 -> e6
+  e6 -> e7
+
+  e1 -> f1 [style=invis]
+  f1 -> f2
+  f2 -> f3 
+  f3 -> f4
+  f4 -> f5
+  f5 -> f6
+  f6 -> f7
+
+  f1 -> g1 [style=invis]
+  g1 -> g2 [style=invis]
+  g2 -> g3 [style=invis]
+  g3 -> g4 [style=invis]
+  g4 -> g5 [style=invis]
+  g5 -> g6 [style=invis]
+  g6 -> g7 [style=invis]
+
+  a2 -> b2
+  b2 -> c2
+  c2 -> d2
+  d2 -> e2
+  e2 -> f2
+  f2 -> g2
+
+  a3 -> b3
+  b3 -> c3
+  c3 -> d3
+  d3 -> e3
+  e3 -> f3
+  f3 -> g3
+
+  a4 -> b4
+  b4 -> c4
+  c4 -> d4
+  d4 -> e4
+  e4 -> f4
+  f4 -> g4
+
+  a5 -> b5
+  b5 -> c5
+  c5 -> d5
+  d5 -> e5
+  e5 -> f5
+  f5 -> g5
+
+  a6 -> b6
+  b6 -> c6
+  c6 -> d6
+  d6 -> e6
+  e6 -> f6
+  f6 -> g6
+
+  a7 -> b7 [style=invis]
+  b7 -> c7 [style=invis]
+  c7 -> d7 [style=invis]
+  d7 -> e7 [style=invis]
+  e7 -> f7 [style=invis]
+  f7 -> g7 [style=invis]
+
+}

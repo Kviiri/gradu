@@ -1,0 +1,29 @@
+graph {
+  node[shape=point]
+
+  ap -- bp
+  bp -- cp
+  cp -- dp
+  dp -- ep
+  ep -- fp
+  fp -- ap  
+
+
+  a -- b
+  b -- c
+  c -- d
+  d -- e
+  e -- f
+  f -- a
+
+  fp -- c [style=invis] //prettifies layout
+
+/*
+  a [shape = point]
+  b [shape = point]
+  c [shape = point]
+  d [shape = point]
+  e [shape = point]
+  f [shape = point]
+*/
+}
