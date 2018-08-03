@@ -1,6 +1,8 @@
 from sys import argv
 from ast import literal_eval
 
+#usage: python decoder.py vars cnf ass > stp
+
 with open(argv[1]) as f:
     vartolabel = { v: k for k, v in literal_eval(f.readline()).iteritems()}
 

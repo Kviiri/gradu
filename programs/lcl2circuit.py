@@ -1,4 +1,5 @@
 #!/usr/bin/python
+#usage: python lcl2circuit.py graphdef lcldef variablemap > output
 
 from sys import argv
 from ast import literal_eval
