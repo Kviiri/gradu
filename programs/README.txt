@@ -56,5 +56,4 @@ python decoder.py varmap cnf ass
 Where varmap is the one output by lcl2circuit.py, cnf is the conjunctive normal form file constructed by bc2cnf and ass is the assignments produced by a SAT solver when it finds a solution. The output of decoder.py is lines in the form
 ('foo', 'bar')
 
-Where 'foo' is the name of the node (as given in the graphdef) and 'bar' is the output label it receives in the solution found by the SAT solver.
-
+Where 'foo' is the name of the node (as given in the graphdef) and 'bar' is the output label it receives in the solution found by the SAT solver. Again, directing the output to a file is recommended - I call the output of decoder.py "stp" for "satisfying tile placement".
