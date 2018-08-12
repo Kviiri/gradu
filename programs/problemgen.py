@@ -4,14 +4,7 @@ from scipy.misc import comb
 #usage: python problemgen.py bitcount first amount exclusionfile
 #outputs rows of all bitcount -bit problems starting from first and at most amount problems
 
-bitcount = int(argv[1])
-first = int(argv[2])
-amount = int(argv[3])
 exclusionset = {}
-if (len(argv) > 4):
-    with open(argv[4]) as exclusionfile:
-        for line in exclusionfile:
-            exclusionset.add(int(line))
 
 # bit numbers for subproblems (0 == most significant)
 # 0 = 00001
@@ -111,8 +104,19 @@ def get_nth_problem(n, k):
             ret |= 2 ** i
     return ret
 
-for i in range(first, first+amount):
-    problem = get_nth_problem(i, bitcount)
-    if not is_mirror_universe(problem):
-        if not is_excluded(problem):
-            print int_to_problem(problem)
+def main():
+    bitcount = int(argv[1])
+    first = int(argv[2])
+    amount = int(argv[3])
+    if (len(argv) > 4):
+        with open(argv[4]) as exclusionfile:
+            for line in exclusionfile:
+                exclusionset.add(int(line))
+    for i in range(first, first+amount):
+        problem = get_nth_problem(i, bitcount)
+        if not is_mirror_universe(problem):
+            if not is_excluded(problem):
+                print int_to_problem(problem)
+
+if __name__ == '__main__':
+    main()
