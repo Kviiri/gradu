@@ -46,7 +46,7 @@ exclusionset = {}
 
 #optimizations:
 #1) Culling of trivials. No need to produce any problem where bits 30 or 31 are 1
-#2) Mirror universe culling: No need to produce problems where bits 0-14 are a superset of 15-29
+#2) Mirror universe culling: No need to produce problems where bits 0-14 are a PROPER superset of 15-29
 #3) Superset culling: No need to produce a problem if its subset is solved
 
 #implementations:
@@ -86,7 +86,7 @@ def int_to_problem(code):
     return ret
 
 def is_mirror_universe(code):
-    return (code >> 15) & (code & 32767) == code & 32767
+    return (code >> 15) & (code & 32767) == code & 32767 && code >> 15 != code & 32767
 
 def is_excluded(code):
     for exclusion in exclusionset:
