@@ -149,29 +149,34 @@
 \mainmatter       % clear page, start arabic page numbering
 
 \section{Johdanto}
-Hajautettu laskenta on laskennan teorian haara, joka tutkii laskentaongelmia verkoissa. Perinteisistä laskennan malleista, kuten Turingin koneista poiketen hajautetulla algoritmilla ei ole keskitettyä tilaa tai muistia. Sen sijaan kukin solmu on oma laskentayksikkönsä, ja suorittaa algoritmia itsenäisesti mutta toisten solmujen kanssa kommunikoiden, tavoitteena muodostaa koko verkon laajuinen ratkaisu käsillä olevaan laskentaongelmaan.
+Hajautettu laskenta on laskennan teorian haara, joka tutkii laskentaongelmia verkoissa. Turingin koneista, RAM-koneista ja muista perinteisistä laskennan malleista poiketen hajautetulla algoritmilla ei ole keskitettyä tilaa tai muistia. Sen sijaan kukin solmu on oma laskentayksikkönsä muisteineen, ja suorittaa algoritmia itsenäisesti mutta toisten solmujen kanssa kommunikoiden, tavoitteena muodostaa koko verkon laajuinen ratkaisu käsillä olevaan laskentaongelmaan.
 
-Hajautetun laskennan näkökulmasta voidaan tarkastella monenlaisia verkko-ongelmia. Eräs mielenkiintoinen ja helposti lähestyttävä ongelmien kategoria on paikallisesti tarkistettavien ongelmien joukko \lcl (locally checkable labeling). \lcl -ongelman määrittävä tekijä on, että kukin solmu tulostaa oman osaratkaisunsa verkko-ongelmaan, ja koko ratkaisu on oikeellinen jos kunkin solmun ympärillä vakiosäteinen pala verkkoa on oikeellinen osaratkaisu. Esimerkkejä \lcl -ongelmista ovat väritysongelmat ja maksimaalisen riippumattoman joukon etsiminen.
+Hajautetun laskennan näkökulmasta voidaan tarkastella monenlaisia verkko-ongelmia. Eräs mielenkiintoinen ja helposti lähestyttävä ongelmien kategoria on paikallisesti tarkistettavien ongelmien joukko \lcl (locally checkable labeling). Verkko-ongelma on \lcl -ongelma, jos sen ratkaisun voi tarkastaa paikallisesti kunkin solmun ympäriltä vakiosäteisestä naapurustosta. Esimerkkejä \lcl -ongelmista ovat väritysongelmat ja maksimaalisen riippumattoman joukon etsiminen. Sen sijaan esimerkiksi Hamiltonin kierroksen etsiminen ei ole \lcl -ongelma, koska kukin solmu joutuu viestimään koko verkon halki varmistaakseen että kaikki solmut ovat varmasti osa samaa koko verkon läpi käyvää kierrosta. 
 
 Hajautetun laskennan perusteiden tutkimista varten on helppoa tarkastella vain rajattua joukkoa verkkoja. Tämän vuoksi monet hajautettujen algoritmien ominaisuuksista ovat hyvin tunnettuja suunnatuille renkaille, eli 2-säännöllisille verkoille joilla on konsistentti kiertosuunta. Tässä opinnäytetyössä keskitytään vastaavasti suunnattuihin toroidihiloihin, eli vastaavasti 4-säännöllisiin verkkoihin joilla on kaksi konsistenttia kiertosuuntaa.
 
-Hajautetun laskennan keskeinen haaste on minimoida tarpeeton kommunikaatio verkon solmujen välillä. Tämän vuoksi hajautetun algoritmin aikavaativuus ilmoitetaankin usein vain tarvittavien kommunikaatiokierrosten määrässä. Solmut eivät kuitenkaan tiedä verkon rakenteesta lähtökohtaisesti mitään oman välittömän naapurustonsa ympäristöstä, joten ongelmien ratkaiseminen vaatii vaikeimpien ongelmien tapauksessa kommunikaatiota jopa verkon kauimmaisten solmujen välillä.
+Hajautetun laskennan keskeinen haaste on minimoida tarpeeton kommunikaatio verkon solmujen välillä. Tämän vuoksi hajautetun algoritmin aikavaativuus ilmoitetaankin usein vain tarvittavien kommunikaatiokierrosten määrässä. Solmut eivät kuitenkaan tiedä verkon rakenteesta lähtökohtaisesti mitään oman välittömän naapurustonsa lisäksi, joten ongelmien ratkaiseminen vaatii vaikeimpien ongelmien tapauksessa kommunikaatiota jopa verkon kauimmaisten solmujen välillä.
 
-Toroidihilojen tapauksessa \lcl -ongelmien aikavaativuuden tutkimukseen liittyy kaksi merkittävää tutkimustulosta. Ensimmäinen on nopeutuslemma, jonka avulla on osoitettu, että kunkin \lcl -ongelman aikavaativuus toroidihilassa on joko $\Theta(n)$, $\Theta(\log^* n)$ tai $\Theta(1)$ kommunikaatiokierrosta. Toinen merkittävä löydös on mahdottomuustulos, joka osoittaa, että \lcl -ongelman aikavaativuuden määrittäminen luokkien $\Theta(n)$ ja $\Theta(\log^* n)$ välillä on ratkeamaton ongelma. Sekä nopeutuslemma että mahdottomuustulos esitellään osana tätä opinnäytetyötä.
+Toroidihilojen tapauksessa \lcl -ongelmien aikavaativuuden tutkimukseen liittyy kaksi merkittävää tulosta. Ensimmäinen on nopeutuslemma, jonka avulla on osoitettu, että kunkin \lcl -ongelman aikavaativuus toroidihilassa on joko $\Theta(n)$, $\Theta(\log^* n)$ tai $\Theta(1)$ kommunikaatiokierrosta. Toinen merkittävä löydös on mahdottomuustulos, joka osoittaa, että \lcl -ongelman aikavaativuuden määrittäminen luokkien $\Theta(n)$ ja $\Theta(\log^* n)$ välillä on ratkeamaton ongelma. Sekä nopeutuslemma että mahdottomuustulos esitellään osana tätä opinnäytetyötä.
 
-Mahdottomuustuloksesta huolimatta on olemassa prosessi, jonka avulla voimme muodostaa asymptoottisesti optimaalisia algoritmeja verkko-ongelmille joiden aikavaativuus on $O(\log^* n)$. Tämä algoritmisynteesiksi kutsuttu prosessi muodostaa nopeutuslemmaa apuna käyttäen iteratiivisesti CNFSAT-ongelman, jonka ratkaisu on halutun ongelman ratkaiseva hajautettu algoritmi. Menetelmä ei löydä algoritmia ongelmille, joiden aikavaativuus on $\Omega(n)$, ja mahdottomuustuloksen mukaisesti kaikkia tilanteita, joissa menetelmä etsii $O(\log^* n)$ -aikaista ratkaisua $\Omega(n)$ kommunikaatiokierrosta vaativalle pulmalle ei voi estää tai keskeyttää.
+Mahdottomuustuloksesta huolimatta on olemassa prosessi, jonka avulla voimme muodostaa asymptoottisesti optimaalisia algoritmeja verkko-ongelmille joiden aikavaativuus on $O(\log^* n)$. Tämä algoritmisynteesiksi kutsuttu prosessi muodostaa verkon, jolle ongelman ratkaisusta voi johtaa algoritmin joka toimii kaikille hiloille. Menetelmä ei löydä algoritmia ongelmille, joiden aikavaativuus on $\Omega(n)$, ja mahdottomuustuloksen mukaisesti kaikkia tilanteita, joissa menetelmä etsii $O(\log^* n)$ -aikaista ratkaisua $\Omega(n)$ kommunikaatiokierrosta vaativalle pulmalle ei voi tunnistaa.
 
 Algoritmisynteesi tarjoaa kuitenkin helpon tavan tunnistaa ja tutkia $O(\log^* n)$-aikaisia \lcl -ongelmia. Tämän opinnäytetyön laskennallinen osuus esittelee algoritmisynteesien tuloksia ja pyrkii niiden avulla muodostamaan havaintoja $O(\log^* n)$ kommunikaatiokierrosta vaativien ongelmien luonteesta.
 
 \section{Määritelmät}
 \subsection{Verkko}
 
-Suuntaamaton verkko on järjestetty pari $(V, E)$, missä $V$ on verkon solmujen joukko ja $E \subseteq (V \times V)$ on verkon kaarten joukko. $E$ on suunnatussa verkossa symmetrinen relaatio. Solmujen $v_1, v_2 \in V$ välillä on kaari kun $(v_1, v_2) \in E$. Kaarella yhdistettyjä solmuja kutsutaan toistensa naapureiksi. Solmun naapurien lukumäärää kutsutaan solmun asteeksi. Solmun $v$ astetta merkitään $deg(v)$. Suuntaamaton verkko ei ikinä sisällä kaarta solmusta itseensä, eli $(v, v) \notin E$.
+%TODO määritelmäosuudessa on "jatkossa oletetaan" -kohtia. Käy ne läpi ja tarkasta että ovat yhä kurantteja
 
-Verkko on yhtenäinen, kun jokaisesta sen solmusta on olemassa verkon kaaria pitkin kulkeva reitti kuhunkin toiseen solmuun. Jatkossa käsittelemme vain yhtenäisiä verkkoja.
+Suunnattu verkko on järjestetty pari $(V, E)$, missä $V$ on verkon solmujen joukko ja $E \subseteq (V \times V)$ on verkon kaarten joukko. $E$ on symmetrinen relaatio, ja kun $(v_1, v_2) \in E$ sanotaan verkossa olevan kaari solmujen $v_1$ ja $v_2$ välillä. Verkko ei voi sisältää kaarta solmusta itseensä, eli $(v, v) \notin E$ kaikille $v \in V$.
+
+Kun $u, v \in V$ ja $(u, v) \in E$ kutsutaan solmuja $u$ ja $v$ toistensa naapureiksi. Solmun naapurien lukumäärää kutsutaan solmun asteeksi. Solmun $v$ astetta merkitään $deg(v)$.
+
+Verkko on yhtenäinen, kun jokaisesta sen solmusta on olemassa verkon kaaria pitkin kulkeva reitti kuhunkin toiseen solmuun. Tässä työssä käsitellään vain yhtenäisiä verkkoja, eli jatkossa tarkoitamme verkoilla nimenomaisesti yhtenäisiä verkkoja.
 
 Säännöllinen verkko on verkko, jonka kunkin solmun asteluku on sama. Verkkoa voidaan kutsua $n$-säännölliseksi, kun $\forall v \in V deg(v) = n$. Esimerkiksi $4$-säännöllinen verkko on verkko, jossa kunkin solmun asteluku on 4.
 
+%TODO tämä kappale suunnatuista verkoista saattaa olla epärelevantti, koska on mahdollista että kaikki gradun suuntaukset onnistuvat paremmin kaarimerkintöjen kautta
 Suunnattu verkko on järjestetty pari $(V, E)$, missä $V$ on verkon solmujen joukko ja $E \subseteq (V \times V)$ on verkon kaarten joukko. Toisin kuin suunnatussa verkossa, $E$ ei ole väistämättä symmetrinen relaatio. Kun $v_1, v_2 \in V$ ja $(v_1, v_2) \in E$ mutta $(v_2, v_1) \notin E$, kulkee $v_1$:stä yksisuuntainen kaari $v_2$:een. Tämä kaari ajatellaan kontekstista riippuen tarkoittamaan todellista yksisuuntaista yhteyttä, tai kaksisuuntaista mutta epäsymmetristä yhteyttä. Tämän opinnäytetyön piirissä käytetään vain jälkimmäistä merkitystä. Kun $(v_1, v_2) \in E$, sanotaan $v_1$:n olevan $v_2$:n edeltäjä ja $v_2$:n olevan $v_1$:n seuraaja.
 
 Haluamme joskus sisällyttää kaariin enemmän informaatiota kuin pelkän suunnan kahden solmun välillä. Kutsumme tätä ylimääräistä informaatiota kaarimerkinnäksi (engl. \textit{edge labeling}). Verkon $G = (V, E)$ kaarimerkintä on funktio $\ell: E \rightarrow L$ missä $L$ on äärellinen joukko sallittuja kaarimerkkejä.
@@ -200,14 +205,14 @@ Verkon $n.$ potenssiverkko on verkko, johon on lisätty kaaria yhdistäen solmut
 
 Verkkoa kutsutaan renkaaksi, kun se on $2$-säännöllinen ja yhtenäinen. Kutsumme rengasta suunnatuksi renkaaksi, kun se on suunnattu verkko ja kullakin solmulla on tarkalleen yksi edeltäjä ja tarkalleen yksi seuraaja. Suunnatulla renkaalla on siis konsistentti kiertosuunta.
 
-Kaksiulotteinen 4-hila, jatkossa vain hila, on 4-säännöllinen yhtenäinen verkko, jota voi pitää kaksiulotteisena yleistyksenä renkaasta. Hila on useasta samankokoisesta renkaasta kytketty ruudukko, joka on kytketty päistään yhteen synnyttäen toroidimaisen rakenteen. Hilan koko voidaan ilmoittaa ulottuvuuksina: $x \times y$ -kokoisessa hilassa on $y$ toisiinsa kytkettyä $x$ solmun rengasta.
+Kaksiulotteinen 4-hila, jatkossa vain hila, on 4-säännöllinen yhtenäinen verkko, jota voi pitää kaksiulotteisena yleistyksenä renkaasta. Hila on useasta samankokoisesta renkaasta kytketty ruudukko, joka on kytketty päistään yhteen synnyttäen toroidimaisen rakenteen. Hilan koko voidaan ilmoittaa ulottuvuuksina: $x \times y$ -kokoisessa hilassa on $y$ toisiinsa kytkettyä $x$ solmun rengasta. Oletamme yksinkertaisuuden vuoksi että $x = y$ kaikille hiloille.
 
 Suunnatulla hilalla tarkoitamme hilaa jolla on suunnatun renkaan tavoin konsistentti kiertosuunta. Jokainen hilan sisältämä rengas kiertää samaan suuntaan, ja lisäksi kullakin solmulla on toinen seuraaja seuraavassa renkaassa ja toinen edeltäjä edellisessä renkaassa. Näin muodostuu ruudukko, jossa kullakin solmulla voidaan ajatella olevan seuraajat pohjoisessa ja idässä, ja vastaavasti edeltäjät etelässä ja lännessä.
 
-Formaalimmin, suunnattu hila $G = (V, \mathsf{N}, \mathsf{E})$ on yleistys suunnatusta verkosta siten, että sillä on kahdentyyppisiä seuraajia ja edeltäjiä. Kullakin hilan solmulla $v \in V$ on koordinaatti siten että $v \in \{1, 2, \ldots, k\} \times \{1, 2, \ldots, l\}$. Määritellään solmun $v$ pohjoisnaapuri $\mathsf{S}: V \rightarrow V$ seuraavasti:
+Formaalimmin, suunnattu hila $G = (V, \mathsf{N}, \mathsf{E})$ on yleistys suunnatusta verkosta siten, että sillä on kahdentyyppisiä seuraajia ja edeltäjiä. Kullakin hilan solmulla $v \in V$ on koordinaatti siten että $v \in \{1, 2, \ldots, n\} \times \{1, 2, \ldots, n\}$. Määritellään solmun $v$ pohjoisnaapuri $\mathsf{S}: V \rightarrow V$ seuraavasti:
 \[ \mathsf{N}(x, y) = 
   \begin{cases}
-   (x, y+1) & \text{kun } y < l \\
+   (x, y+1) & \text{kun } y < n \\
    (x, 1) & \text{muuten}
   \end{cases}
 \]
@@ -215,7 +220,7 @@ Formaalimmin, suunnattu hila $G = (V, \mathsf{N}, \mathsf{E})$ on yleistys suunn
 Määritellään vastaavasti $v$:n itänaapuri $\mathsf{E}: V \rightarrow V$:
 \[ \mathsf{E}(x, y) = 
   \begin{cases}
-   (x+1, y) & \text{kun } x < k \\
+   (x+1, y) & \text{kun } x < n \\
    (1, y) & \text{muuten}
   \end{cases}
 \]
@@ -248,13 +253,15 @@ Hiloista ja hilojen osista puhuessamme haluamme, että isomorfismit säilyttäv�
 
 Hajautetussa laskennassa ratkaistaan verkko-ongelmia siten, että jokainen verkon solmu on oma laskentayksikkönsä ja verkon kaaret kuvaavat laskentayksiköiden välisiä kytkentöjä. Solmut eivät siis tunne koko verkon rakennetta, vaan ainoastaan oman välittömän ympäristönsä, mutta voivat laajentaa käsitystään ympäröivästä verkosta viestimällä naapuriensa kanssa.
 
-Erilaisia hajautetun laskennan malleja on monia, mutta tässä työssä käytän Linialin~\cite{linial92} käyttämää LOCAL-mallia. LOCAL-mallissa laskenta etenee synkronoiduissa kommunikaatiokierroksissa, joiden aikana kukin solmu voi lähettää mielivaltaisen määrän dataa naapureilleen, ja vastaavasti vastaanottaa kultakin naapuriltaan dataa ja suorittaa mielivaltaisen määrän laskentaa saamallaan datalla.
+Erilaisia hajautetun laskennan malleja on monia, mutta tässä työssä käytän Linialin~\cite{linial92} käyttämää LOCAL-mallia. LOCAL-mallissa kaikki solmut suorittavat samaa, determinististä algoritmia. Laskenta etenee synkronoiduissa kommunikaatiokierroksissa, joiden aikana kukin solmu voi lähettää mielivaltaisen määrän dataa naapureilleen, ja vastaavasti vastaanottaa kultakin naapuriltaan niiden lähettämän datan. Laskentakierrosten välissä kukin solmu voi suorittaa mielivaltaisen määrän laskentaa saamaansa dataa käyttäen.
 
+%TODO rajaa tunnuksen ylärajaa
 LOCAL-mallissa kullakin solmulla on tunnus, joka on yksilöllinen ei-negatiivinen kokonaisluku. Oletamme että, verkon $G = (V, E)$ ongelmaa ratkaisevalla algoritmilla on käytössään bijektio $\text{id}: V \rightarrow \mathbb{Z}_+$, joka määrittelee kunkin solmun tunnuksen. Kukin solmu tietää oman tunnuksensa algoritmin suorituksen aluksi, ja voi saada toisten solmujen tunnukset tietoonsa suorituksen aikana tapahtuvan kommunikaation perusteella. Hajautettua algoritmia voidaan pitää oikeellisena vain, jos sen tuottama tulos on oikeellinen riippumatta solmujen tunnuksista.
 
+%TODO käytetäänkö input-funktiota missään?
 Joissakin hajautetun laskennan ongelmissa solmut saavat myös syötettä sallittujen syötteiden joukosta $\Sigma$. Annettu syöte voi vaikuttaa algoritmin haluttuun tulokseen, tai olla esimerkiksi suoritusta nopeuttavaa neuvoa. Oletamme, että verkon $G = (V, E)$ ongelmaa ratkaisevalla algoritmilla on käytössään funktio $\text{input}: V \rightarrow \Sigma$, joka kertoo kunkin solmun syötteen. Kun $\Sigma$ jätetään määrittelemättä, oletamme sen sisältävän vain yhden alkion jolloin kukin solmu saa saman syötteen eikä voi mielekkäästi hyödyntää syötettä laskennassaan. Ellei toisin mainita, solmut eivät tiedä algoritmin suorituksen aluksi muuta kuin oman tunnuksensa ja syötteensä. Erityisen tärkeää on, etteivät hilojen solmut tunne koordinaattejaan tai hilan ulottuvuuksia.
 
-Algoritmin suorituksen päätteeksi kukin solmu tulostaa oman osansa vastausta ongelmaan. Sallittujen tulosteiden joukko $\Gamma$ riippuu ongelmasta. Esimerkiksi verkon $k$-väritysongelmaa ratkaistaessa kukin solmu tulostaa arvon joukosta $\{1, 2, \ldots, k\}$ siten että mitkään kaksi toistensa naapurina olevaa solmua eivät tulosta samaa arvoa.
+Algoritmin suorituksen päätteeksi kukin solmu tulostaa oman osansa vastausta ongelmaan. Sallittujen tulosteiden joukko $\Gamma$ riippuu nimenomaisesta ongelmasta. Esimerkiksi verkon $k$-väritysongelmaa ratkaistaessa kukin solmu tulostaa arvon joukosta $\{1, 2, \ldots, k\}$ siten että mitkään kaksi toistensa naapurina olevaa solmua eivät tulosta samaa arvoa.
 
 Ellei toisin mainita, edellytämme hajautetulta algoritmilta determinismiä. Tämä tarkoittaa, että tietyllä $\text{id}$ verkon $G = (V, E)$ kunkin solmun $v \in V$ saama tulosarvo riippuu ainoastaan solmun naapurustosta $B_G(v, r)$ missä $r$ riippuu algoritmin aikavaativuudesta, sekä naapuruston saamasta syötteestä. Voimme siis ajatella hajautettua algoritmia funktiona $f: (B_G(v, r), \text{id}, \text{input}) \rightarrow \Gamma$.
 
@@ -267,8 +274,8 @@ Ellei toisin mainita, edellytämme hajautetulta algoritmilta determinismiä. Tä
 \subsection{Järjestysinvariantti algoritmi}
 Järjestystunnisteinen algoritmi (engl. \textit{order-invariant algorithm}) on hajautettu algoritmi, jossa solmut eivät käytä solmujensa todellisia arvoja vaan ainoastaan niiden keskinäistä järjestystä. Naor ja Stockmeyer osoittivat~\cite{naor95}, että varsinaisen tunnisteen vaihtaminen järjestystunnisteisuuteen ei rajoita algorimtin laskentavoimaa.
 
-%todo: teoreemaformatointi
-%todo: keskitetty verkko pitää määritellä
+%TODO teoreemaformatointi
+%TODO keskitetty verkko pitää määritellä
 
 Naorin ja Stockmeyerin menetelmä muuttaa mielivaltaisia tunnisteita käyttävän hajautetun algoritmin $A$ järjestystunnisteiseksi algoritmiksi $A'$ seuraavasti: olkoon $L(K_1, s_1), ... , (K_z,s_z)$ keskitettyjä verkkoja syötteineen siten että solmujen tunnisteet on määritelty $A$:ssa. Olkoon $p$ suurin solmujen määrä missään verkossa $K_i$.
 
@@ -279,7 +286,7 @@ Muita verkko-ongelmille tyypillisiä aikavaativuusluokkia ovat vakioaikaisten al
 
 Verkko-ongelman aikavaativuuden lisäksi meitä kiinnostaa usein tietää, milloin ongelman ratkaisuehdotuksen oikeellisuuden voi määritellä paikallisesti, eli tarkistamalla vain vakiosäteisen naapuruston kunkin solmun ympäristöstä~\cite{linial92}. Esimerkkejä tällaisista ongelmista ovat mm. verkon väritysongelmat, joiden ratkaisut ovat oikeellisia kun kunkin solmun $v$ naapureista kaikki saavat eri tulosteen kuin $v$.
 
-Yllä kuvatun kaltaisia verkko-ongelmia, joissa ratkaisun oikeellisuuden voi tarkastaa vakioajassa, kutsutaan paikallisesti tarkastettavaksi merkinnäksi (engl. \textit{locally checkable labeling}, jatkossa LCL). Naor ja Stockmeyer~\cite{naor95} määrittelevät LCL-ongelman $\mathcal{L}$ formaalisti nelikkona $(r, \Sigma, \Gamma, \mathcal{C})$ missä $r \in \mathbb{Z}_+$ on paikallisuuden määrittävä säde, $\Sigma$ on äärellinen joukko mahdollisia syötearvoja solmuille, $\Gamma$ on äärellinen joukko mahdollisia tulostearvoja, ja $\mathcal{C} \subseteq \Sigma \times \Gamma$ on joukko $r$-säteisiä verkkoja, jotka ovat ongelman sallittuja osaratkaisuja.
+Yllä kuvatun kaltaisia verkko-ongelmia, joissa ratkaisun oikeellisuuden voi tarkastaa vakioajassa, kutsutaan paikallisesti tarkastettavaksi merkinnäksi (engl. \textit{locally checkable labeling}, jatkossa \lcl). Naor ja Stockmeyer~\cite{naor95} määrittelevät \lcl-ongelman $\mathcal{L}$ formaalisti nelikkona $(r, \Sigma, \Gamma, \mathcal{C})$ missä $r \in \mathbb{Z}_+$ on paikallisuuden määrittävä säde, $\Sigma$ on äärellinen joukko mahdollisia syötearvoja solmuille, $\Gamma$ on äärellinen joukko mahdollisia tulostearvoja, ja $\mathcal{C} \subseteq \Sigma \times \Gamma$ on joukko $r$-säteisiä verkkoja, jotka ovat ongelman sallittuja osaratkaisuja.
 
 %TODO ^ ohho, entäs jos \Sigma on tyhjä joukko? Tarkista C, se vaikuttaa epäilyttävältä.
 
@@ -293,9 +300,11 @@ Kun $P$ on \lcl -ongelma, jonka tarkastussäde on $r$, voimme muodostaa uuden \l
 Koska ongelman, jonka tarkastussäde on $r$, voi muuttaa vakioajassa vastaavaksi ongelmaksi jonka tarkastussäde on $1$, oletamme jatkossa kaikkien \lcl -ongelmien tarkistussäteen olevan $1$.
 
 \subsection{Aikavaativuusluokat}
-Monet hajautettujen verkko-ongelmien ominaisuudet tunnetaan hyvin rengasverkoissa. Sekä rengas- että hilaverkossa LCL-ongelman ratkaisemisen aikavaativuus on aina $O(1)$, $\Theta (\log^* n)$ tai $O(n)$, jos se on ylipäänsä ratkaistavissa. Mielivaltaisissa verkoissa \lcl -ongelmalla voi olla myös muita aikavaativuuksia kuten $\Theta(\log n)$.
+Monet hajautettujen verkko-ongelmien ominaisuudet tunnetaan hyvin rengasverkoissa. Sekä rengas- että hilaverkossa LCL-ongelman ratkaisemisen aikavaativuus on aina $\Theta(1)$, $\Theta (\log^* n)$ tai $\Theta(n)$, jos se on ylipäänsä ratkaistavissa. Mielivaltaisissa verkoissa \lcl -ongelmalla voi olla myös muita aikavaativuuksia kuten $\Theta(\log n)$.
 
 \subsubsection{Vakioaikaiset ongelmat}
+%TODO ymmärrä allaoleva ja korjaa se jos se on rikki
+
 Hilan syötteettömään \lcl -ongelmaan $P$ on $O(1)$ -aikainen ratkaisu jos ja vain jos ongelman määrittely sallii koko verkon täyttämisen samalla tulostemerkillä $\gamma \in \Gamma$~\cite{chang}. Muuten aikavaativuus on $\Omega(\log^* n)$.
 
 Olkoon $G = (V, E)$ hila, jonka ulottuvuudet ovat $n \times n$. Kukin hilan solmu $v \in V$ saakoon koordinaatit $(x, y)$ siten että $x, y \in {0, 1, \dots, n-1}$. Käytämme näitä funktioita yhdessä kunkin solmun $k \log n$ -bittisenä tunnisteena. Olkoot $\phi_x$ ja $\phi_y$ funktioita joukosta $\{0, 1,\dots, n-1\}$ joukkoon $\{0, 1,\dots,n^k-1\}$ joille pätee $\phi_x(0) < \phi_x(1) < \dots < \phi_x(n-1) < \phi_y(0) < \phi_y(1) < \dots < \phi_y(n-1)$. Sijainnissa $(x, y)$ sijaitsevan solmun tunnus on $\phi_x(x) \cdot n^{k/2} + \phi_y(y)$.
@@ -311,33 +320,87 @@ Olkoon $\phi_x(x - \tau - 1 + i) = s_i$ kullekin $i \in [0, 2\tau + 1]$ ja $\phi
 Kun olemme määrittäneet $\phi_x$:n ja $\phi_y$:n näin, $A$ asettaa kaikkiin naapuruston $B_G(v, \tau)$ solmuihin saman arvon $\gamma \in \Gamma$. Täten ratkaisu, jossa verkon jokainen solmu valitsee tulosteen $\gamma$ on $P$:n oikeellinen ratkaisu. Selvästi nähdään, että ongelman voi ratkaista $O(1)$ kommunikaatiokierroksessa algoritmilla, joka vain tulostaa $\gamma$:n.
 
 \subsubsection{Nopeutuslemma ja normaalimuoto}
-Nopeutuslemma on menetelmä, jonka avulla voimme muodostaa $\Theta(\log^* n)$-aikaisen algoritmin \lcl -ongelmalle, johon tunnetaan $o(n)$-aikainen algoritmi. Tämä tarkoittaa, että ongelman aikavaativuus ei voi olla asymptoottisesti aidosti $\Theta(\log^*)$:n ja $O(n)$:n välissä, sillä jos ongelmalle on algoritmi jonka aikavaativuus on tuossa välissä, nopeutuslemman avulla sen ratkaisemiseksi on muodostettavissa myös $\Theta(\log^*)$-aikainen algoritmi.
 
-Oletetaan, että johonkin verkko-ongelmaan on algoritmi $A$ joka tuottaa ratkaisun ajassa $T(n) = o(n)$. Nopeutuslemman avulla muodostamme $A$:n perusteella $\Theta(\log^*)$ aikaisen algoritmin $B$ joka ratkaisee saman ongelman $a \times b$ -kokoiselle hilalle $G$ kun $a, b < n$.
+%TODO tarkista nopeutuslemman oikeellisuus
 
-Nopeutuslemma perustuu ongelman jakamiseen pienempiin $k \times k$ -kokoisiin osaongelmiin. Valitaan pienin $k \geq 4$ siten että $T(k) < k/4 - 4$. Tällainen $k$ on pakko olla olemassa oletuksemme $T(n) = o(n)$ johdosta. $k$ on ainoastaan $T$:stä riippuva vakio.
+Nopeutuslemma on menetelmä, jonka avulla voimme muodostaa $\Theta(\log^* n)$-aikaisen algoritmin \lcl -ongelmalle, johon tunnetaan $o(n)$-aikainen algoritmi. Tämä tarkoittaa, että ongelman aikavaativuus ei voi olla asymptoottisesti aidosti luokkien $\Theta(\log^* n)$ ja $\Theta(n)$ välissä, sillä jos ongelmalle on algoritmi jonka aikavaativuus on tuossa välissä, nopeutuslemman avulla sen ratkaisemiseksi on muodostettavissa myös $\Theta(\log^* n)$-aikainen algoritmi.
 
-Haluamme jakaa verkon solmuille uudet paikallisesti yksilöivät tunnukset joukosta $\{1, 2, 3, ... k^2\}$ siten, että kussakin $k \times k$ -ruudussa esiintyy kukin tunnus tarkalleen kerran. Tämä tehdään etsimällä maksimaalinen riippumaton joukko $I$ potenssiverkosta $G^{(k/2)}$, mikä on mahdollista suorittaa ajassa $O(log* n)$. Koska $I$ on maksimaalinen riippumaton joukko $G^{(k/2)}$:ssa, kukin $G$:n solmu on korkeintaan $k/2$ kaaren päässä lähimmästä $I$:n solmusta. Kun $v$ on $G$:n solmu, kutsumme sitä lähinnä olevaa $I$:n solmua $v$:n ankkuriksi ja merkitsemme sitä $a(v)$. Kahden tai useamman $I$:n solmun ollessa yhtä lähellä voi $v$ valita ankkurinsa niiden keskuudesta mielivaltaisesti.
+Oletetaan, että \lcl -ongelmaan $L$ on algoritmi $A$ joka tuottaa ratkaisun ajassa $T(n) = o(n)$. Nopeutuslemman avulla muodostamme $A$:n perusteella $\Theta(\log^* n)$ -aikaisen algoritmin joka ratkaisee saman ongelman.
 
-Koska kukin solmu on korkeintaan $k/2$ kaaren päässä ankkuristaan ja $k$ on vakio, voi kukin solmu selvittää ankkurinsa sekä sijaintinsa suhteessa siihen vakioajassa. Kunkin solmun $v$ suhteellinen sijainti $c(v) = (x_v - x_{a(v)}, y_v - y_{a(v)})$ toimii $v$:n paikallisesti yksilöivänä tunnuksena. Koordinaatti on paikallisesti yksilöivä, sillä $I$:n solmut ovat väistämättä yli $k/2$ etäisyydellä toisistaan. aJos kaksi eri solmua $u$ ja $v$ saavat saman koordinaatin, niiden on vastaavasti oltava vähintään $k/2$ etäisyydellä toisistaan.
+Nopeutuslemma perustuu hilan jakamiseen pienempiin $k \times k$ -kokoisiin osiin ja ongelman ratkaisemiseen kullekin osalle itsenäisesti. Valitaan pienin $k \geq 4$ siten että $T(k) < k/4 - 4$. Tällainen $k$ on pakko olla olemassa oletuksemme $T(n) = o(n)$ johdosta. $k$ on ainoastaan $T$:stä riippuva vakio.
+
+Haluamme jakaa verkon solmuille uudet paikallisesti yksilöivät tunnukset joukosta $\{1, 2, 3, \ldots, k^2\}$ siten, että kussakin $k \times k$ -ruudussa esiintyy kukin tunnus tarkalleen kerran. Tämä tehdään etsimällä maksimaalinen riippumaton joukko $I$ potenssiverkosta $G^{(k/2)}$, mikä on mahdollista suorittaa ajassa $O(log* n)$. Koska $I$ on maksimaalinen riippumaton joukko $G^{(k/2)}$:ssa, kukin $G$:n solmu on korkeintaan $k/2$ kaaren päässä lähimmästä $I$:n solmusta. Kun $v$ on $G$:n solmu, kutsumme sitä lähinnä olevaa $I$:n solmua $v$:n ankkuriksi ja merkitsemme sitä $a(v)$. Kahden tai useamman $I$:n solmun ollessa yhtä lähellä voi $v$ valita ankkurinsa niiden keskuudesta mielivaltaisesti.
+
+Koska kukin solmu on korkeintaan $k/2$ kaaren päässä ankkuristaan ja $k$ on vakio, voi kukin solmu selvittää ankkurinsa sekä sijaintinsa suhteessa siihen vakioajassa. Kunkin solmun $v$ suhteellinen sijainti $c(v) = (x_v - x_{a(v)}, y_v - y_{a(v)})$ toimii $v$:n paikallisesti yksilöivänä tunnuksena. Koordinaatti on paikallisesti yksilöivä, sillä $I$:n solmut ovat väistämättä yli $k/2$ kaaren etäisyydellä toisistaan. Jos kaksi eri solmua $u$ ja $v$ saavat saman koordinaatin, niiden on vastaavasti oltava vähintään $k/2$ etäisyydellä toisistaan.
 
 Kun koordinaatteja ankkurin suhteen käytetään paikallisesti yksilöivänä tunnuksena, missään $k \times k$ -ruudussa ei esiinny samaa paikallista tunnusta kahdesti tai useammin. Nyt käytämme $A$:ta verkko-ongelman ratkaisuun $G$:ssä pienellä muutoksella: kerromme $A$:lle ratkaistavan hilan ulottuvuuksien olevan $k \times k$. Nyt $A$ ratkaisee hilan ongelman vakioajassa. Ratkaisun on oltava oikeellinen, sillä $A$:n näkökulmasta sen näkemä $k \times k$ -hila on täysin normaali ongelman instanssi.
 
-\subsection{Esimerkkejä ongelmista}
-\subsubsection{Maksimaalinen riippumaton joukko}
-Kun $G = (V, E)$, joukko $I \subset V$ on riippumaton joukko kun millään $u, v \in I$ ei päde $(u, v) \in E$  tai $(v, u) \in E$. Riippumaton joukko on maksimaalinen, kun lisäksi ei ole olemassa $w \in V \setminus I$ siten että $I \cup {w}$ ei ole enää riippumaton joukko. Maksimaalinen riippumaton joukko on siis riippumaton joukko, johon ei voi lisätä solmuja tekemättä siitä riippumatonta.
+Koska $k$ riippuu vain ongelman $L$ aikavaativuudesta, se on ongelmakohtaisesti vakio. Täten algoritmin $A$ suorittaminen $k \times k$ -kokoisen hilan kappaleella on aikavaativuudeltaan $O(1)$. Koska nopeutuslemmalla muodostettava algoritmi joutuu laskemaan verkon $G^k$ maksimaalisen riippumattoman joukon, aikavaativuus on $\Theta(\log^* n)$.
 
-Maksimaalisen riippumaton joukon voi määrittää myös \lcl -ongelmana. Ratkaisu on oikeellinen kun kukin solmu joko kuuluu itse riippumattomaan joukkoon ilman että yksikään sen naapureista kuuluu siihen (riippumattomuus), ja jokaisella joukkoon kuulumattomalla solmulla on ainakin yksi joukkoon kuuluva naapuri (maksimaalisuus). Hilassa sallitut ratkaisuruudut näyttävät siis seuraavanlaisilta:
+\subsection{Esimerkkejä ongelmista}
+%TODO tämä pitänee siirtää ennen nopeutuslemmaa, sekä esitietojen että järkevyyden nimissä
+\subsubsection{Verkon väritysongelma}
+Verkon väritysongelmana on tarkoitus löytää verkolle $G = (V, E)$ kuvaus $c : V \rightarrow C$ siten että millekään $v \in V$ ei ole olemassa $u \in B_G(v, 1), u \neq v$ jolle $c(u) = c(v)$. Kun $|C| = n$, kutsumme $c$:tä verkon $n$-väritykseksi. Kun $v \in V$, arvoa $c(v)$ kutsutaan solmun $v$ väriksi.
+
+Verkon värityksen oikeellisuus riippuu vain kunkin solmun välittömästä naapurustosta, joten kyseessä on \lcl -ongelma. Kukin solmu $v$ voi tarkistaa värityksen oikeellisuuden lähiympäristössään vastaanottamalla tiedon kaikkien naapuriensa väreistä ja vertaamalla niitä omaan väriinsä. Väritys on oikeellinen jos yhdelläkään solmun $v$ naapurilla ei ole väriä $c(v)$.
+
+Esittelen menetelmän, jolla voidaan muodostaa hilalle tai hilan potenssiverkolle $k$-väritys hilan koosta riippumattomalle vakiolle $k$. Menetelmä perustuu Cole-Vishkin -algoritmiin, joka on tarkoitettu suunnattujen puiden värittämiseen, mutta josta voi johtaa ratkaisuja muihinkin väritysongelmiin.
+
+Verkko $G = (V, E)$ on suunnattu puu, kun sillä on juuri $r \in V$ siten, että kustakin solmusta $v \in (V \setminus r)$ on tarkalleen yksi reitti juureen ja kukin kaari on suunnattu osoittamaan juureen. Kun $v, u \in V$ ja $(u, v) \in E$, sanomme $v$:n olevan $u$:n vanhempi ja $u$:n olevan $v$:n lapsi. Merkitsemme solmun $v \neq r$ vanhempaa $\pi_v$. 
+
+Cole-Vishkin -algoritmi alustaa kunkin $v \in V$ värin siten että $c(v) = \text{id}(v)$, ja suorittaa sen jälkeen $O(log^* n)$ iteratiivista kierrosta joista kukin vähentää värien määrää kunnes jäljellä on vain kuusi väriä.
+
+Merkitköön $c(u)[i]$ solmun $u$ värin $i.$ merkitsevintä bittiä. Kukin solmu $u \neq r$ vastaanottaa kullakin kierroksella vanhempansa värin $c(\pi_u)$, ja asettaa uudeksi värikseen $c'(u) = \langle i, c(\pi_u)[i] \rangle$ pienimmälle $i$:n arvolle jolle $c(u)[i] \neq c(\pi_u)[i]$. Juuri $r$ asettaa värikseen $c'(r) = \langle i, c(r)[i] \rangle$ mielivaltaiselle indeksille $i$. 
+
+Tarkastellaan väritystä $c'$ mielivaltaisen solmun $u$ näkökulmasta olettaen, että $c'$ muodostettiin oikeellisen värityksen $c$ pohjalta. Merkitään $i(c'(u))$ ja $i(c'(\pi_u))$ solmujen $u$ ja $\pi_u$ uusien värien $i$-osuutta. Jos $i(c'(u)) \neq i(c'(\pi_u))$, väritys on oikeellinen. Muussa tapauksessa olkoon $i = i(c'(u))$. Värityksen määritelmän mukaan $c(u)[i] \neq c(\pi_u)[i]$, jolloin $c'(u) \neq c'(\pi_u)$ toisen kentän bitissä. Uusi väritys on siis selvästi oikeellinen.
+
+Olkoon $N_0 = \lceil{\log n}\rceil$ alkuperäisen värityksen tarvitsema bittien enimmäismäärä solmulle $v \in V$, ja $N_j$ tarvittavien bittien enimmäismäärä $j$ kommunikaatiokierroksen jälkeen. Koska $i$ on korkeintaan solmun värin vanhempien bittien määrä ja uudessa värityksessä on sen lisäksi yksi bitti, $N_{j+1} \leq \lceil \log N_j \rceil + 1 \leq \lceil \log N_j \rceil + 2$.
+
+Jatkamalla tästä huomaamme että $N_1 \leq N_0 + 2$, ja $N_2 \leq \log (\log N_0 + 2) \leq \log^2 N_0 + 3$ jos $N_0 \geq 2$. Huomaamme että kun $j = 1, 2, \ldots$ ja $\log^{(j)} N_0 \geq 3$, jolloin $N_j < \log^{(j)} N_0 + 3$.
+%TODO jatka ylle
+
+Algoritmi vähentää värien määrän kuuteen. Binääriesityksen pituus on tällöin kolme bittiä, mutta värin ensimmäinen kenttä voi olla vain $01$, $10$ tai $11$. Viimeinen bitti voi olla $0$ tai $1$ jolloin eri värejä on käytössä kuusi.
+
+Cole-Vishkin -algoritmin avulla on mahdollista määrittää väritys myös hilalle. Kukin solmu $u$ suorittaa algoritmia kahdelle eri puulle samaan aikaan: yhdessä sen vanhempana on $\mathsf{N}(u)$ ja toisessa $\mathsf{E}(u)$. Tällöin solmun $u$ väri on $c(u) = \langle c_\mathcal{N}(u), c_\mathcal{E}(u) \rangle$, missä $c_\mathcal{N}(u)$ on solmun $u$ väri etelä-pohjoissuuntaan toimivan algoritmin antamana ja vastaavasti $c_\mathcal{E}(u)$ on sen väri länsi-itä -suuntaan toimivan algoritmin mukaan. Koska värin $c(u)$ ensimmäinen kenttä on eri värin $c(\mathsf{N}(u))$ ensimmäisen kentän kanssa ja toinen kenttä on eri värin $c(\mathsf{E}(u))$ kanssa, värityksen on oltava oikeellinen.
+
+Samankaltaista menetelmää voi käyttää myös hilan potenssiverkkojen värittämiseksi $O(\log^* n)$ kommunikaatiokierroksessa. Esimerkiksi hilan toista potenssia värittäessä kunkin solmun $u \in V$ väri $c(u)$ koostuu kuudesta kentästä. Samoin kuin aiemmin $c_\mathcal{N}(u)$ ja $c_\mathcal{E}(u)$ ovat solmun värityksiä normaalissa etelä-pohjois- ja länsi-itä -suuntaisina. Tämän lisäksi väritykseen kuuluvat kaakko-lounais -suuntainen väritys $c_\mathcal{(N,E)}(u)$ ja luode-koillis -suuntainen väritys $c_\mathcal{(S,E)}(u)$, sekä kaksi kaarta kerrallaan etelä-pohjois -suunnassa kulkeva väritys $c_\mathcal{(N,N)}(u)$ ja kaksi kaarta kerrallaan länsi-itä -suunnassa kulkeva väritys $c_\mathcal{(E,E)}(u)$.
+
+Väite: kun hilan $G$ potenssiverkon $G^2 = (V, E^2)$ värityksen $c(u)$ osat ovat oikeellisia värityksiä kullekin $u \in V$, $c$ itsessään on oikea väritys. Todistus: valitaan mielivaltainen kaari $(v, w) \in E^2$. Merkitään kaaren suuntaa $\mathsf{D} \in \{  \mathsf{N, E, NE, SE, NN, EE}\}$. Olkoon $\mathsf{D}$ värityksen $j.$ kenttä, ja $i_v$ sekä $i_w$ tuohon kenttään valittu indeksi. Jotta $c(v) = c(w)$ olisi pakko päteä $i_v = i_w$, jolloin Cole-Vishkin -algoritmi asettaa kenttään väistämättä eri bittiosuuden.
+
+\subsubsection{Maksimaalinen riippumaton joukko}
+Kun $G = (V, E)$, joukko $I \subset V$ on riippumaton joukko kun kaikilla $u, v \in I$ pätee $(u, v) \notin E$ ja $(v, u) \notin E$. Riippumaton joukko on maksimaalinen, kun lisäksi ei ole olemassa $I' \supsetneq I$ joka olisi myös riippumaton joukko. Toisin sanoen riippumaton joukko $I$ on maksimaalinen jos ja vain jos $I \cup \{w\}$ ei ole riippumaton joukko millekään $w \in V \setminus I$.
+
+Maksimaalisen riippumaton joukon voi määrittää myös \lcl -ongelmana. Määritellään $\Gamma = {1, 0}$ siten, että vain solmut jotka tulostavat $1$ kuuluvat maksimaaliseen riippumattomaan joukkoon. Riippumattomuus toteutuu, kun kullakin $1$-merkkisellä solmulla on vain $0$-merkkisiä naapureita. Maksimaalisuus toteutuu, kun kullakin $0$-merkkisellä naapurilla on vähintään yksi $1$-merkkinen naapuri. Sallittujen osittaisratkaisujen joukko näyttää siis seuraavalta:
 %TODO kuva
 
-Voimme antaa verkolle syötteeksi joukon solmuja, ja tarkistaa $O(1)$-ajassa onko joukko riippumaton. Joukkoon kuuluvat solmut saavat syötteekseen $1$ ja kuulumattomat solmut syötteekseen $0$. Jokainen solmu käyttää yhden kommunikaatiokierroksen lähettääkseen syötteensä naapureille. Nyt kukin solmu voi tarkistaa tuloksen oikeellisuuden vertailemalla naapuriensa syötteitä omiinsa, eli kyseessä on \lcl -ongelma
+Voimme antaa verkolle syötteeksi joukon solmuja, ja tarkistaa $O(1)$-ajassa onko joukko riippumaton. Jokainen solmu käyttää yhden kommunikaatiokierroksen lähettääkseen syötteensä naapureille. Nyt kukin solmu voi tarkistaa tuloksen oikeellisuuden vertailemalla naapuriensa syötteitä omiinsa, eli kyseessä on \lcl -ongelma.
 
-Linial osoitti~\cite{linial92} alarajan, jonka mukaan maksimaalisen riippumattoman joukon laskeminen on aikavaativuudeltaan $\Omega(log^* n)$ mielivaltaiselle verkolle. Esittelen seuraavaksi Schneiderin ja Wattenhoferin algoritmin, joka laskee maksimaalisen riippumattoman joukon $O(log^* n)$ -ajassa, eli on asymptoottisesti optimaalinen.
+Linial osoitti~\cite{linial92} alarajan, jonka mukaan maksimaalisen riippumattoman joukon laskeminen on aikavaativuudeltaan $\Omega(log^* n)$ mielivaltaiselle verkolle. Hiloille on olemassa $O(log^* n)$ -aikainen algoritmi, joka voidaan johtaa alunperin suunnattujen puiden värittämiseen tarkoitetusta Cole-Vishkin -algoritmista.
 
-Schneiderin ja Wattenhoferin algoritmissa jokainen verkon solmu on aluksi kandidaatti kuulumaan maksimaaliseen riippumattomaan joukkoon. Solmuja eliminoidaan "kilpailuissa" kunnes lopulta jäljellä on vain maksimaalinen riippumaton joukko. Kilpailun kullakin kierroksella kukin solmu haastaa naapurinsa, jolla on pienin pistearvo.
-%TODO citet ylle ja korjaa muutenkin kun kirjoitit niin huonosti
+Kun verkolle on $k$-väritys jollekin vakiolle $k$, voidaan sen perusteella muodostaa maksimaalinen riippumaton joukko ajassa $O(1)$. Merkitsemme solmun $v \in V$ saamaa väriä $c(v)$. Koska kyseessä on $k$-väritys, $c(v) \in \{1, 2, \ldots, k\}$. Värityksen ehdon mukaisesti $c(v) \neq c(u)$ kaikille $u \in B_G(v, 1) \setminus {v}$.
 
-Ensimmäisellä kierroksella käytetään pistearvona yksinkertaisesti solmun tunnistetta. Kukin solmu $v$ haastaa naapurustonsa solmun $u$, jonka tunniste on $v$ itse pois lukien kaikista pienin. Jos $\text{id}(v) < \text{id}(u)$, $v$ saa pistearvokseen kierrokselta $0$. Muussa tapauksessa $v$ saa uuden pistearvon, joka on eniten merkitsevä bitti $\text{id}(v)$:n binääriesityksessä jonka arvo on $1$ kun samassa paikassa oleva $\text{id}(u)$:n bitti on $0$.
+Rakennamme värityksen perusteella maksimaalisen riippumattoman joukon iteratiivisesti. Olkoon $I_1 = \{ v \in V : c(v) = 1 \}$. Koska millään kahdella naapurilla ei ole samaa väriä, selvästi $I_1$ on riippumaton joukko. Muodostetaan kullakin laskenta-askeleella uusi joukko
+
+$$I_{n+1} = I_n \cup \{ v \in V : (c(v) = n+1) \land \nexists u \in I_n (v \in B_G(u, 1)) \}$$
+
+joka ei sisällä yhtään solmua joukon $I_n$ naapurustosta ja on siten yhä riippumaton. Nähdään, että $I_1 \subseteq I_2 \subseteq \ldots \subseteq I_k$.
+
+Väite: riippumaton joukko $I_k$ on maksimaalinen. Todistus: Olkoon $v \in V$ mielivaltainen verkon solmu. Jos $I_{c(v)-1} \cap B_G(v, 1) = \emptyset$, iteraation määritelmän mukaan $v \in I_{c(v)}$. Näin ollen $\exists u \in B_G(v, 1) (u \in I_k)$, eli $I_k$ on oltava maksimaalinen.
+
+
+%Allaoleva on deletoitavaa kun saat sen CV algon esiteltyä
+Esittelen seuraavaksi Schneiderin ja Wattenhoferin algoritmin, joka laskee maksimaalisen riippumattoman joukon $O(log^* n)$ -ajassa, eli on asymptoottisesti optimaalinen.
+%TODO algoritmi toimii vain Bounded Growth -verkoille
+
+Schneiderin ja Wattenhoferin algoritmissa jokainen verkon solmu on aluksi kandidaatti kuulumaan maksimaaliseen riippumattomaan joukkoon. Solmuja eliminoidaan "kilpailuissa" kunnes lopulta jäljellä on vain maksimaalinen riippumaton joukko. 
+%TODO citet ylle
+
+Ensimmäisellä kierroksella kunkin solmun pistearvo on sen tunniste. Kukin solmu $v$ haastaa naapurustonsa solmun $u$, jonka tunniste on $v$ itse pois lukien kaikista pienin. Jos $\text{id}(v) < \text{id}(u)$, $v$ saa pistearvokseen kierrokselta $0$. Muussa tapauksessa $v$ saa uuden pistearvon, joka on eniten merkitsevä bitti $\text{id}(v)$:n binääriesityksessä jonka arvo on $1$ kun samassa paikassa oleva $\text{id}(u)$:n bitti on $0$.
+
+Kun solmun pistearvo on pienempi kuin yhdelläkään sen naapureista, se otetaan osaksi maksimaalista riippumatonta joukkoa ja se lopettaa kilpailun. Solmun naapurit ovat tällöin dominoituja eivätkä myöskään osallistu tuleviin kilpailuihin. Solmut, jotka ovat pistearvoltaan korkeintaan yhtäsuuria kuin kaikki naapurinsa ja yhtäsuuria vähintään yhden kanssa asetetaan tauolle eivätkä ne osallistu kilpailuihin.
+%TODO tarkasta ylläoleva
+
+
  
 \iffalse
 \subsubsection{Heikko väritysongelma}
@@ -431,19 +494,28 @@ Jos $P_2$:a ratkaiseva algoritmi luo ratkaisuun ankkurin, sen on myös aloitetta
 Koska $P_1$ vaatii aina $\Omega(n)$ kommunikaatiokierrosta ja $P_2$:n oikeellinen ratkaisu vaatii $\Omega(n)$ kommunikaatiokierrosta jos $M$ ei pysähdy tyhjällä nauhalla, $L_M$:än ratkaiseminen kaikkiaan vaatii $\Omega(n)$ kommunikaatiokierrosta jos $M$ ei pysähdy tyhjällä nauhalla. Muussa tapauksessa $P_2$:n ja siten $L_M$:n voi ratkaista $O(\log^* n)$ kommunikaatiokierroksessa. Koska mielivaltaisen Turingin koneen $M$ pysähtymisen määrittäminen on Turing-ratkeamaton ongelma, on sitä vastaavan $L_M$:n aikavaativuuden määrittäminen yhtä lailla ratkeamaton. Yleisemmin voimme todeta että on ratkeamaton ongelma selvittää, onko annetulle \lcl -ongelmalle olemassa $O(\log^* n)$-ajassa toimiva ratkaisualgoritmi.
 
 \section{Algoritmin synteesi}
-Vaikka \lcl -ongelman aikavaativuuden määrittäminen yleisessä tapauksessa on edellisen teoreeman mukaisesti ratkeamaton ongelma, on mahdollista muodostaa asymptoottisesti optimaalinen algoritmi \lcl -ongelmalle jonka aikavaativuuden jo tiedämme. Brandt ym.~\cite{brandt} esittelevät menetelmän, jolla optimaalisen algoritmin voi muodostaa hilan ongelmalle, jonka aikavaativuus tiedetään.
+Vaikka \lcl -ongelman aikavaativuuden määrittäminen yleisessä tapauksessa on edellisen teoreeman mukaisesti ratkeamaton ongelma, on mahdollista muodostaa asymptoottisesti optimaalinen algoritmi \lcl -ongelmalle jonka aikavaativuuden jo tiedämme. Brandt ym.~\cite{brandt} esittelevät menetelmän, jolla voi muodostaa $O(\log^* n)$ -aikaisen algoritmin ongelmalle jonka tiedetään ratkeavan $O(\log^* n)$ -ajassa.
 
 Olkoon $P$ \lcl -ongelma, ja $p \in {0, 1}$ on bitti joka saa arvon 1 jos ja vain jos $P$:lle on olemassa $O(\log^* n)$-aikainen ratkaisualgoritmi. Jos $b = 0$, nopeutuslemman mukaisesti $P$:n ratkaisemiseen tarvitaan $\Omega(n)$ kommunikaatiokierrosta. Tällöin asymptoottisesti optimaalinen algoritmi on kerätä koko verkon rakenne kuhunkin solmuun ja antaa kunkin solmun ratkaista ongelma sisäisesti. Jos $b = 1$, ongelman voi ratkaista $O(1)$ kommunikaatiokierroksessa jos ja vain jos on olemassa vakiotuloste jonka voi laittaa jokaiseen verkon solmuun.
 %TODO todista ylläoleva jossain aiemmin. Tee siitä oma lemmansa
 
-Ainoa vaativampi tapaus on siis ongelma, jonka optimaalinen ratkaisu vaatii $\Theta(\log^* n)$ kommunikaatiokierrosta. Nopeutuslemmaa käyttäen tiedämme, että kullekin $o(n)$ kommunikaatiokierrosta vaativalle ongelmalle on olemassa algoritmi joka on muotoa $A \circ S_k$ jollekin vakiolle $k$ siten, että $S_k$ muodostaa ankkurien joukon $I$ joka on maksimaalinen riippumaton joukko $G^k$:ssa, ja $A'$ on $O(k)$ kommunikaatiokierroksessa toimiva algoritmi joka ottaa syötteenään ankkurijoukon $I$ ja ratkaisee sen jälkeen ongelman nopeutuslemman esittelemään tapaan.
+%TODO V "Ainoa vaativampi tapaus" -- onhan se O(n) kans aika vaativa?
+Ainoa vaativampi tapaus on siis ongelma, jonka optimaalinen ratkaisu vaatii $\Theta(\log^* n)$ kommunikaatiokierrosta. Nopeutuslemmaa käyttäen tiedämme, että jos \lcl -ongelmalle on olemassa algoritmi $A$ jonka aikavaativuus on $o(n)$, sen perusteella voidaan muodostaa uusi algoritmi $A' \circ S_k$ jollekin vakiolle $k$ siten, että $S_k$ muodostaa ankkurien joukon $I$ joka on maksimaalinen riippumaton joukko $G^k$:ssa, ja $A'$ on $O(k)$ kommunikaatiokierroksessa toimiva algoritmi joka ottaa syötteenään ankkurijoukon $I$ ja ratkaisee sen jälkeen ongelman nopeutuslemman esittelemään tapaan.
 
-Voimme ajatella nopeutuslemman käyttämää prosessia tässä yksinkertaisemmin algoritmina, joka ottaa syötteekseen ankkurien sijainnit $O(k)$-säteisessä naapurustossa ja tuottaa niiden perusteella tulosteen. Voimme siis ajatella nopeutuslemman tuottamaa algoritmia $A'$ äärellisenä funktiona $O(k)$-säteisistä naapurustoista, jotka on merkitty joukosta $\{0, 1\}$ kuvaamaan ankkurien sijainteja, $A'$:n lopullisiin, paikallisiin tulosteisiin.
+%TODO tarkasta ylläoleva
+
+\begin{figure}
+  \includegraphics[width = 300pt]{synteesi.png}
+  \caption{Algoritmin synteesi esiteltynä prosessikaaviona. Harmaalla merkityt työvaiheet eivät ole ongelmakohtaisia, vaan ne tarvitsee suorittaa vain kerran kullekin $k$. Ongelmien esikarsinta tarvitsee suorittaa kaikkiaan vain kerran.}
+\end{figure}
+
+Voimme ajatella nopeutuslemman käyttämää prosessia tässä yksinkertaisemmin algoritmina, joka ottaa syötteekseen ankkurien sijainnit $O(k)$-säteisessä naapurustossa ja tuottaa niiden perusteella tulosteen. Nopeutuslemman tuottama algoritmi $A'$ voidaan siis nähdä äärellisenä funktiona $O(k)$-säteisistä naapurustoista, jotka on merkitty joukosta $\{0, 1\}$ kuvaamaan ankkurien sijainteja, $A'$:n lopullisiin, paikallisiin tulosteisiin.
 
 Naapuruston säteen $k$ voi etsiä iteratiivisesti aloittamalla arvosta $k = 1$ ja kasvattamalla $k$:ta kunnes $O(\log^* n)$-aikaisen algoritmin synteesi onnistuu. Jos $P$:n aikavaativuus on $\Omega(n)$, mikään $k$:n arvo ei tuota toimivaa algoritmia joten $k$:n kasvattaminen ei pääty ikinä. Kullekin $k$:n arvolle valitaan $r_1, r_2 \in \Theta(k)$ ja muodostetaan kaikki erilaiset $r_1 \times r_2$ -kokoiset ruudut ankkureineen. $r_1$ ja $r_2$ on valittava tarpeeksi suuriksi siten, että kaikki ankkurien joukon eri konfiguraatiot tulevat esiin.
 %TODO selvennä ylläolevaa
 
 Brandt ym.~\cite{brandt} esittelevät menetelmän, joka tuottaa kaikki $a \times b$ -kokoiset ruudut, jotka voivat esiintyä ankkurien joukossa. Kun $G$ on verkko ja $I \subset V(G)$ on maksimaalinen riippumaton joukko $G$:ssä, voidaan paria $(G', I')$ kutsua parin $(G, I)$ ruuduksi kun $G'$ on $G$:n indusoitu aliverkko ja $I' = V(G') \cap I$. Voimme siis ajatella ruudun sisältävän palan koko verkosta ja sen maksimaalisesta riippumattomasta joukosta.
+%TODO tarkista onko indusoitu aliverkko määritelty
 
 Joukon $V' \subseteq V(G)$ naapurusto $G$:ssä määritellään $B_G(V', 1) = \bigcup_{v \in V'} B_G(v, 1)$. Löytääksemme $a \times b$ -kokoisia ruutuja, tarkastelemme ruutua $(G'', I'')$ jonka ulottuvuudet ovat $a \times b$ ja yritämme muodostaa suuremman ruudun $(G', I')$ sen pohjalta. Erityisesti haluamme, että on olemassa $I'$ siten että $(G', I')$ voi olla maksimaalisen riippumattoman joukon $I$ osana.
 
@@ -452,7 +524,8 @@ Olkoon $V_d = (V(G') \ V(G'')) \ B_G(I'', 1)$. Koska yksikään $V_d$:n solmu ei
 Ruudun voi tarkistaa muodostamalla joukon $V_u = V(G') \ B_G(I_d \cup I'', 1)$. Jos $V_u = \emptyset$, on $(G', I_d \cup I'')$ mahdollinen ruutu $(G, I)$:ssä.
 %TODO todista
 
-Jos $V_u \neq \emptyset$, sisältää ruutu $(G', I_d \cup I'')$ solmuja jotka eivät kuulu maksimaaliseen riippumattomaan joukkoon tai ole sen naapurissa. Tällaisilla solmuilla täytyy kullakin voida olla vähintään yksi naapuri joukossa $I \ G'$ jotta $(G', I_d \cup I'')$ olisi oikeellinen ruutu. Formaalimmin, jos ruutu on oikeellinen, on oltava olemassa riippumaton joukko $I_n \in (V(G) \ G(G')) \ B_G(I_d \cup I'', 1)$ siten että $V_u \in B_G(I_n)$.
+Jos $V_u \neq \emptyset$, sisältää ruutu $(G', I_d \cup I'')$ solmuja jotka eivät kuulu maksimaaliseen riippumattomaan joukkoon tai ole sen naapurissa. Tällaisilla solmuilla täytyy kullakin voida olla vähintään yksi naapuri joukossa $I \setminus G'$ jotta $(G', I_d \cup I'')$ olisi oikeellinen ruutu. Formaalimmin, jos ruutu on oikeellinen, on oltava olemassa riippumaton joukko $I_n \in (V(G) \ G(G')) \ B_G(I_d \cup I'', 1)$ siten että $V_u \in B_G(I_n)$.
+%TODO ylläolevan kappaleen setminus lisättiin jälkikäteen. Mieti onko se varmasti oikein
 
 Riippumattoman joukon $I_n$ etsinnän voi esittää verkon peiteongelmana. Muodostetaan joukko $S_v = (B_G(v, 1) \ V(G')) \ B_G(I'' \cup I_d, 1))$ kullekin $v \in V_u$. Oikeellinen $I_n$ on riippumaton joukko jolla $I_n \cap S_v \neq \emptyset$ kaikille $v$, ja sen etsimisen voi toteuttaa SAT-ratkaisimella.
 
@@ -583,7 +656,7 @@ Olkoon $k = 1, r_1 = 2$ ja $r_2 = 3$. Olkoon $I$ maksimaalinen riippumaton joukk
   \hline
 \end{tabular}
 \end{center}
-
+%TODO allaoleva sisältää tavaraa joka ei kuulu esimerkkiin.
 Ajatellaan näitä ruutuja omana verkkonaan $H = (V_H, E_H)$. Ruudut muodostavat solmujen joukon $V_H$. Muodostetaan lisäksi kaarten joukko $E_H$ siten että kunkin kahden solmun välillä on kaari jos niistä voi muodostaa uuden laatan joka on ulottuvuuksiltaan $(r_1 + 1) \times r_2$ tai $r_1 \times (r_2 + 1)$ siten, että uusi laatta voi edelleen esiintyä $G^k$:n maksimaalisssa riippumattomassa joukossa. Esimerkiksi laatan
 \begin{center}
 \begin{tabular}{ | c | }
@@ -700,13 +773,14 @@ välille, sillä näin syntyvä laatta
 \end{tabular}
 ei voi olla osa maksimaalista riippumatonta joukko $G^k$:ssä.
 
-Haluamme määrittää tulosarvon $H$:n kullekin solmulle siten, että jos $(u, v) \in E_H$ niin $c(u) \neq c(v)$ väritysongelman ehtojen mukaisesti. Koska kyseessä on 4-väritys, haluamme myös että $c(v) \in \{1, 2, 3, 4\}$ kaikille $v \in V_H$.
+Kutsutaan näin syntyvää verkkoa \textit{pseudohilaksi}, sillä sillä on samanlaisia ominaisuuksia kuin hilalla. Kullakin solmulla on pohjois-, itä-, etelä- ja länsinaapurit, ja niiden suhteet ovat käänteiset samoin kuten normaalilla hilalla; jos $u$ on solmun $v$ pohjoisnaapuri, niin vastaavasti solmun $v$ on oltava solmun $u$ etelänaapuri.
+
+Toisin kuin tavallisessa hilassa, pseudohilan kullakin solmulla voi olla kussakin ilmansuunnassa useampi kuin yksi naapuri. Haluamme määrittää tulosarvon $H$ kullekin solmulle siten, että jos $(u, v) \in E_H$ niin $c(u) \neq c(v)$ väritysongelman ehtojen mukaisesti. Koska kyseessä on 4-väritys, haluamme myös että $c(v) \in \{1, 2, 3, 4\}$ kaikille $v \in V_H$.
 
 Tämän värityksen etsimisen voimme ulkoistaa valmiille SAT-ratkaisimelle. Tätä varten ongelma on muotoiltava konjunktiiviseen normaalimuotoon (jatkossa CNF, \textit{conjunctive normal form}), jota SAT-ratkaisijat käyttävät. CNF-lause on konjunktioilla yhdistetty joukko lausekkeita, jotka koostuvat yhdestä tai useammasta disjunktiolla yhdistetystä muuttujasta tai muuttujan negaatiosta.
 
 \section{Paikallisten ongelmien etsiminen}
-Algoritmisynteesi tarjoaa vahvan työkalun $O(\log^* n)$ -aikaisten ongelmien etsimiseen. Vaikka paikallisten ja globaalien ongelmien joukot ovat rekursiivisesti erottamattomia, on mahdollista tunnistaa lukuisia paikallisia ongelmia yrittämällä algoritmisynteesiä tarpeeksi suurella $k$ tarpeeksi suurelle joukolle ongelmia.
-
+Algoritmisynteesi tarjoaa oivallisen työkalun $O(\log^* n)$ -aikaisten ongelmien etsimiseen. Vaikka paikallisten ja globaalien ongelmien joukot ovat rekursiivisesti erottamattomia, on mahdollista tunnistaa lukuisia paikallisia ongelmia yrittämällä algoritmisynteesiä tarpeeksi suurella $k$ tarpeeksi suurelle joukolle ongelmia.
 
 %TODO tarkista että olet todistanut aikavaativuuden rekursiivisen erottamattomuuden
 
@@ -730,8 +804,40 @@ Voimme laajentaa edellä mainittua optimointia myös ongelmiin, joissa osaratkai
 %TODO matemaattinen perustelu ylle
 
 \subsection{Synteesin automatisoiminen}
-$O(\log^* n)$ -aikaisten \lcl -ongelmien etsimisen automatisointi on monivaiheinen prosessi.
+$O(\log^* n)$ -aikaisten \lcl -ongelmien etsimisen automatisointi on monivaiheinen prosessi. Kullekin $k$ jolle synteesiä halutaan yrittää tarvitaan pseudohila, jossa kukin solmu kuvaa yhtä mahdollista ruutua verkon $G^k$ maksimaalisille riippumattomille joukoille. Kun pseudohila on luotu, sitä ei tarvitse luoda erikseen joka ongelmaa varten vaan samaa pseudohilaa voi käyttää kaikille \lcl -ongelmille. Uusi pseudohila tarvitaan, jos halutaan kokeilla ratkaisemista toisella $k$:n arvolla.
 
+%TODO määrittele pseudohila jossain, se on hieno termi
+
+Pseudohila ja \lcl -ongelma halutaan muuttaa ratkaisua varten CNFSAT-muotoon. Koska \lcl -ongelmalle ei ole intuitiivista esitysmuotoa CNFSAT-muodossa, käytetään väliasteena normaalia propositiologiikkaa.
+
+Olkoon \lcl -ongelma $L = (r, \Sigma, \Gamma, \mathcal{C})$ ja pseudohila $G = (V, E)$. Määritellään lisäksi $f_\Gamma : \rightarrow \{ 0, 1, \ldots, |\Gamma|-1\}$, $f_\mathcal{C} : \mathcal{C} \rightarrow \{1, 2, \ldots, |\mathcal{C}|\}$ ja $f_V : V \rightarrow \{1, 2, \ldots, |V|\}$  numeroinneiksi tulostusmerkeille, solmuille ja naapurustoille.
+
+Kun $|\Gamma| \cdot f_V(v) + f_\Gamma(s) = n$, kuvatkoon muuttuja $x_n$ väitettä "solmu $v$ tulostaa arvon $s$". Koska kullakin solmulla täytyy olla tarkalleen yksi tuloste, vaadimme seuraavien ehtojen täyttymistä:
+%TODO tarkista off by ponet, katso onko "solmu v saa arvon c" notaation piirissä
+$$(x_n \vee x_{n+1} \vee x_{n+2} \vee \ldots \vee x_{n+|\Gamma|-1})$$
+
+kun $n = f_V(v)$ jollekin $v \in V$, ja 
+
+$$\lnot(x_m \land x_p)$$
+
+kaikille $m < p$ kun $m = |\Gamma| \cdot f_V(v) + f_\Gamma(s)$ ja $p = |\Gamma| \cdot f_V(v) + f_\Gamma(s')$ kun $v \in V$ ja $s, s' \in \Gamma$.
+
+Nyt kullekin $v \in V$ voi olla vain tarkalleen yksi tuloste $s \in \Gamma$. Haluamme kuitenkin edellyttää myös, että jokaisen solmun naapurusto on jokin sallittu ratkaisu. Kun $|\mathcal{C}| \cdot f_V(v) + f_\mathcal{C}(c) = n$, kuvatkoon muuttuja $t_n$ väitettä "$B_G(v, 1)$ on isomorfinen naapuruston $c$ kanssa". Toisin sanoen jokainen $t_n$ kuvaa tietyn solmun $v$ naapuruston olevan tietty sallittu naapurusto.
+
+%TODO ehkä esimerkki?
+
+Kun $n = f_V(v)$ jollekin $v \in V$, kuvatkoon muuttuja $d_n$ väitettä "solmun $v$ naapurusto on jokin ongelman $L$ sallituista ratkaisuista". Propositiologiikan kielellä ilmaistuna
+$$d_n = \bigwedge_{i = {|\mathcal{C}| \cdot n}}^{|\mathcal{C}| \cdot (n+1) - 1} t_i$$.
+
+Nämä propositiologiikan lauseet määrittelevät kokonaan \lcl -ongelman $L$ käytetylle pseudohilalle. Määrittelemme vielä lopullisen ehdon
+
+$$(d_1 \land d_2 \land \ldots \land d_{|V|})$$
+
+jonka täyttyessä \lcl -ongelmaan $L$ on olemassa ratkaisu. \lcl -ongelmalle $L$ luodaan automaattisesti pseudohilan ja ongelman määrittelyn perusteella yllä esitellyt loogiset lauseet circuit-muotoon koodattuna.
+%TODO ^lähde circuitille
+%TODO tarkista kaavan ylä- ja alaindeksi
+
+Circuit-muodossa oleva ongelma käännetään konjunktiiviseen normaalimuotoon (CNFSAT) jotta se voidaan ratkaista normaalilla SAT-ratkaisimella (esimerkiksi MINISAT). Ratkaisun löytyessä siitä voidaan johtaa $L$:n ratkaisu jota voidaan käyttää $O(\log^* n)$ -aikaisen ratkaisualgoritmin tuottamiseen.
 
 
 \section{Päätelmät}
