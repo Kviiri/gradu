@@ -1,0 +1,26 @@
+digraph {
+  //rankdir = "LR"
+  select_k[label="k"][style=filled][fillcolor="lightgray"]
+  tiles[label="Muodosta ruudut", shape="box"][style=filled][fillcolor="lightgray"]
+  make_graphdef[label="Muodosta pseudohila", shape="box"][style=filled][fillcolor="lightgray"]
+  graphdef[label="Pseudohila"][style=filled][fillcolor="lightgray"]
+  pre_filter[label="Ongelmien esikarsinta", shape="box"][style=filled][fillcolor="lightgray"]
+  probdef[label="Ongelman määrittely"]
+  cqt[label="Muodosta Circuit", shape="box"]
+  cnf[label="Muodosta CNFSAT", shape="box"]
+  interpret[label="Tulkintaohje"]
+  assignment[label="Tyydyttävä sijoitus"]
+  algorithm[label="Valmis algoritmi"]
+
+  select_k -> tiles
+  tiles -> make_graphdef
+  make_graphdef -> graphdef
+  pre_filter -> probdef
+  probdef -> cqt
+  graphdef -> cqt
+  cqt -> cnf
+  cqt -> interpret
+  cnf -> assignment
+  assignment -> algorithm
+  interpret -> algorithm
+}
