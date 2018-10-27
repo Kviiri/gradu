@@ -81,7 +81,7 @@ def problem_to_int(problem):
             tilecode |= 8
         if tile[0] == '1':
             tilecode |= 16
-        code |= (2**tilecode)
+        code |= (2**(tilecode-1))
     return code
 
 
@@ -94,12 +94,8 @@ def is_canonical(code):
             transform(transform(baseproblem, vertical_mirror), horizontal_mirror)]
     for mirror in mirrors:
         inverse = transform(mirror, invert)
-        #print "my code is %s and my stupid inverse is %s" % (str(code), problem_to_int(inverse))
         if code > problem_to_int(inverse):
             return False
-        else:
-            print "I seriously consider %s to be simpler than %s" % (mirror, inverse)
-            print "Their respective codes are: %s and %s" % (problem_to_int(mirror), problem_to_int(inverse)) 
         for problem in [mirror, inverse]:
             rotations = map(lambda x: rotate_tile(x), problem)
             firstrot = [i[0] for i in rotations]
