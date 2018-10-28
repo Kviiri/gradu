@@ -172,11 +172,15 @@ def main():
         with open(argv[4]) as exclusionfile:
             for line in exclusionfile:
                 exclusionset.add(int(line))
-    for i in range(first, first+amount):
+    foundproblems = 0
+    for i in range(first, int(comb(30, bitcount))):
         problem = get_nth_problem(i, bitcount)
         if is_canonical(problem):
             if not is_excluded(problem):
                 print int_to_problem(problem)
+                foundproblems += 1
+                if foundproblems >= amount:
+                    break
 
 if __name__ == '__main__':
     main()
