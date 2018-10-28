@@ -177,7 +177,7 @@ def main():
         problem = get_nth_problem(i, bitcount)
         if is_canonical(problem):
             if not is_excluded(problem):
-                print int_to_problem(problem)
+                print problem
                 foundproblems += 1
                 if foundproblems >= amount:
                     break
