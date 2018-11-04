@@ -59,8 +59,7 @@ def extend_valid(oneSet, candidate_columns, tilewidth, tileheight, max_width, k)
     if tilewidth-2*k > 0:
         #next we add the nondominated zeroes if the tile has any
         #contains (x, y) of all nondominated zeroes
-        nondominated_candidates = set((tilewidth-1, y) for y in range(k, tileheight-k))
-        #while instead of for, for juju optimizations
+        nondominated_candidates = set((tilewidth-1-k, y) for y in range(k, tileheight-k))
         for one in oneSet:
             delete_set = set()
             #only ones close enough to the edge to count
@@ -166,6 +165,7 @@ k = int(argv[3])
 columnset = create_columns(tileheight, k)
 tiles = frozenset(frozenset((0,i) for i in column) for column in columnset)
 i = 1
+
 while i < tilewidth:
     new_tiles = set()
     i += 1
