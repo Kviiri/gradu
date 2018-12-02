@@ -174,4 +174,7 @@ while i < tilewidth:
     tiles = frozenset(new_tiles)
 
 for tile in tiles:
-    print "[%s]" % ",".join(str(s) for s in tile)
+    #print "[%s]" % ",".join(str(s) for s in tile)
+    pretty_print_tile(tile, 3, 4)
+    print " "
+    print " "
