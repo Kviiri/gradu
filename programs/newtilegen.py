@@ -63,7 +63,7 @@ def extend_valid(oneSet, candidate_columns, tilewidth, tileheight, max_width, k)
         for one in oneSet:
             delete_set = set()
             #only ones close enough to the edge to count
-            if(one[0] >= tilewidth - k - 1):
+            if(one[0] >= tilewidth - 2*k - 1):
                 for nondom in nondominated_candidates:
                     if is_manhattan_close(nondom, one, k):
                         delete_set.add(nondom)
