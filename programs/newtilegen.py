@@ -161,6 +161,9 @@ def pretty_print_tile(ones, width, height):
 tilewidth = int(argv[1])
 tileheight = int(argv[2])
 k = int(argv[3])
+temp_out_prefix = None
+if len(argv) > 4:
+    temp_out_prefix = argv[4]
 
 columnset = create_columns(tileheight, k)
 tiles = frozenset(frozenset((0,i) for i in column) for column in columnset)
@@ -171,10 +174,17 @@ while i < tilewidth:
     i += 1
     for tile in tiles:
         new_tiles.update(extend_valid(tile, columnset, i, tileheight, tilewidth, k))
+
+    if temp_out_prefix and i < tilewidth:
+        with open("%s%d" % (temp_out_prefix, i), "w") as f:
+            for tile in new_tiles:
+                f.write("[%s]" % ",".join(str(s) for s in tile))
+                f.write("\n")
     tiles = frozenset(new_tiles)
 
+
 for tile in tiles:
-    #print "[%s]" % ",".join(str(s) for s in tile)
-    pretty_print_tile(tile, 3, 4)
-    print " "
-    print " "
+    print "[%s]" % ",".join(str(s) for s in tile)
+    #pretty_print_tile(tile, 3, 4)
+    #print " "
+    #print " "
